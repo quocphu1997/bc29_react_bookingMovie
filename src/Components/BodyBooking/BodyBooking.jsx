@@ -57,6 +57,7 @@ class BodyBooking extends Component {
                   <button
                     onClick={() => {
                       this.props.selectecSeat(seat.soGhe);
+                      this.props.listGhe.push(seat);
                     }}
                     className={`btn ${seat.daDat && "btn-success"}`}
                     style={{
@@ -101,6 +102,7 @@ class BodyBooking extends Component {
 }
 
 const mapStateToProps = (state) => {
+  // console.log(state);
   return {
     ...state.bookingReducers,
   };
@@ -108,7 +110,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     selectecSeat: (type) => {
-      console.log(type);
+      // console.log(type);
       dispatch({
         type: "SELECTED_SEAT",
         payload: type,

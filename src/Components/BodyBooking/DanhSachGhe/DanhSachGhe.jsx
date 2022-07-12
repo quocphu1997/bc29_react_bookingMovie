@@ -1,6 +1,31 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
-export default class DanhSachGhe extends Component {
+class DanhSachGhe extends Component {
+  renderTableList = () => {
+    return this.props.listGhe.map((ele) => {
+      return (
+        <tr key={ele.soGhe}>
+          <td style={{ border: "1px solid", padding: "0.5em 1em" }}>
+            {ele.soGhe}
+          </td>
+          <td style={{ border: "1px solid", padding: "0.5em 1em" }}>
+            {ele.gia}
+          </td>
+          <td style={{ border: "1px solid", padding: "0.5em 1em" }}>
+            <button
+              onClick={() => {
+                this.props.DeleteGhe(ele);
+              }}
+              className="btn btn-danger"
+            >
+              Hủy
+            </button>
+          </td>
+        </tr>
+      );
+    });
+  };
   render() {
     return (
       <div>
@@ -61,19 +86,7 @@ export default class DanhSachGhe extends Component {
                   <th style={{ border: "1px solid", padding: "1em" }}>Hủy</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td style={{ border: "1px solid", padding: "0.5em 1em" }}>
-                    A1
-                  </td>
-                  <td style={{ border: "1px solid", padding: "0.5em 1em" }}>
-                    75000
-                  </td>
-                  <td style={{ border: "1px solid", padding: "0.5em 1em" }}>
-                    hủy
-                  </td>
-                </tr>
-              </tbody>
+              <tbody>{this.renderTableList()}</tbody>
             </table>
           </div>
           <div>
@@ -84,3 +97,20 @@ export default class DanhSachGhe extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  // console.log(state);
+  return {
+    ...state.bookingReducers,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    DeleteGhe: (type) => {
+      dispatch({
+        type: "DELETE_SEAT",
+        payload: type,
+      });
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(DanhSachGhe);
