@@ -5,33 +5,30 @@ const DEFAULT_STATE = {
   data: dataBooking,
   listGhe: [],
 };
-
 export const bookingReducers = (state = DEFAULT_STATE, { type, payload }) => {
   // console.log(state.listGhe);
   switch (type) {
     case "SELECTED_SEAT": {
-      state.selectedSeat = payload;
+      // state.selectedSeat = payload;
 
-      state.data.map((ele) => {
-        ele.danhSachGhe.map((seat) => {
-          if (seat.soGhe === state.selectedSeat) {
-            seat.daDat = true;
-            console.log("1", seat.daDat);
-          }
-        });
+      // state.data.map((ele) => {
+      //   ele.danhSachGhe.map((seat) => {
+      //     if (seat.soGhe === state.selectedSeat) {
+      //       seat.daDat = true;
+      //     }
+      //   });
+      // });
+      const hang = state.data.find((ele) => ele.hang === payload.hang);
+
+      hang.danhSachGhe = hang.danhSachGhe.map((ghe) => {
+        if (ghe.soGhe === payload.soGhe) {
+          return { ...ghe, daDat: !ghe.daDat };
+        }
+        return ghe;
       });
       return { ...state };
     }
-    case "UNSELECTED_SEAT": {
-      state.data.map((seat) => {
-        state.listGhe.map((unseat) => {
-          if (unseat.soGhe === seat.soGhe) {
-            seat.daDat = false;
-          }
-        });
-      });
-      return { ...state };
-    }
+
     case "DELETE_SEAT": {
       const dataSeat = [...state.listGhe];
       const indx = dataSeat.findIndex((ele) => ele.soGhe === payload.soGhe);
