@@ -11,10 +11,22 @@ export const bookingReducers = (state = DEFAULT_STATE, { type, payload }) => {
   switch (type) {
     case "SELECTED_SEAT": {
       state.selectedSeat = payload;
+
       state.data.map((ele) => {
         ele.danhSachGhe.map((seat) => {
           if (seat.soGhe === state.selectedSeat) {
             seat.daDat = true;
+            console.log("1", seat.daDat);
+          }
+        });
+      });
+      return { ...state };
+    }
+    case "UNSELECTED_SEAT": {
+      state.data.map((seat) => {
+        state.listGhe.map((unseat) => {
+          if (unseat.soGhe === seat.soGhe) {
+            seat.daDat = false;
           }
         });
       });
@@ -26,6 +38,18 @@ export const bookingReducers = (state = DEFAULT_STATE, { type, payload }) => {
       // console.log(indx);
       dataSeat.splice(indx, 1);
       state.listGhe = dataSeat;
+      return { ...state };
+    }
+    case "UNSELECTED_SEAT2": {
+      state.selectedSeat = payload;
+
+      state.data.map((ele) => {
+        ele.danhSachGhe.map((seat) => {
+          if (seat.soGhe === state.selectedSeat) {
+            seat.daDat = false;
+          }
+        });
+      });
       return { ...state };
     }
     default:

@@ -57,6 +57,7 @@ class BodyBooking extends Component {
                   <button
                     onClick={() => {
                       this.props.selectecSeat(seat.soGhe);
+                      this.props.unselectecSeat(seat);
                       this.props.listGhe.push(seat);
                     }}
                     className={`btn ${seat.daDat && "btn-success"}`}
@@ -113,6 +114,13 @@ const mapDispatchToProps = (dispatch) => {
       // console.log(type);
       dispatch({
         type: "SELECTED_SEAT",
+        payload: type,
+      });
+    },
+    unselectecSeat: (type) => {
+      // console.log(type);
+      dispatch({
+        type: "UNSELECTED_SEAT",
         payload: type,
       });
     },

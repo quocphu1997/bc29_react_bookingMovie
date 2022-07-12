@@ -16,6 +16,7 @@ class DanhSachGhe extends Component {
             <button
               onClick={() => {
                 this.props.DeleteGhe(ele);
+                this.props.UnselectecSeat(ele.soGhe)
               }}
               className="btn btn-danger"
             >
@@ -108,6 +109,12 @@ const mapDispatchToProps = (dispatch) => {
     DeleteGhe: (type) => {
       dispatch({
         type: "DELETE_SEAT",
+        payload: type,
+      });
+    },
+    UnselectecSeat: (type) => {
+      dispatch({
+        type: "UNSELECTED_SEAT2",
         payload: type,
       });
     },
