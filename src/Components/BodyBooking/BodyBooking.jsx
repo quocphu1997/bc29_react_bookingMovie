@@ -51,14 +51,14 @@ class BodyBooking extends Component {
           >
             <td>{ele.hang}</td>
 
-            {ele.danhSachGhe.map((seat) => {
+            {ele.danhSachGhe.map((seat,index) => {
               return (
-                <td key={seat.soGhe}>
+                <td key={index}>
                   <button
                     onClick={() => {
                       this.props.selectecSeat({
                         hang: ele.hang,
-                        soGhe: ele.soGhe,
+                        soGhe: seat.soGhe,
                       });
                       // this.props.selectecSeat(seat.soGhe);
                       this.props.listGhe.push(seat);
@@ -74,7 +74,7 @@ class BodyBooking extends Component {
                       borderRadius: "5px",
                       cursor: "pointer",
                     }}
-                    key={seat.soGhe}
+                    key={index}
                   >
                     {seat.soGhe}
                   </button>

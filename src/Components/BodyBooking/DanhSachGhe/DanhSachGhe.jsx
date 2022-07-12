@@ -3,28 +3,30 @@ import { connect } from "react-redux";
 
 class DanhSachGhe extends Component {
   renderTableList = () => {
-    return this.props.listGhe.map((ele) => {
-      return (
-        <tr key={ele.soGhe}>
-          <td style={{ border: "1px solid", padding: "0.5em 1em" }}>
-            {ele.soGhe}
-          </td>
-          <td style={{ border: "1px solid", padding: "0.5em 1em" }}>
-            {ele.gia}
-          </td>
-          <td style={{ border: "1px solid", padding: "0.5em 1em" }}>
-            <button
-              onClick={() => {
-                this.props.DeleteGhe(ele);
-                this.props.UnselectecSeat(ele.soGhe)
-              }}
-              className="btn btn-danger"
-            >
-              Hủy
-            </button>
-          </td>
-        </tr>
-      );
+    return this.props.listGhe.map((ele, index) => {
+      if (!ele.daDat) {
+        return (
+          <tr key={index}>
+            <td style={{ border: "1px solid", padding: "0.5em 1em" }}>
+              {ele.soGhe}
+            </td>
+            <td style={{ border: "1px solid", padding: "0.5em 1em" }}>
+              {ele.gia}
+            </td>
+            <td style={{ border: "1px solid", padding: "0.5em 1em" }}>
+              <button
+                onClick={() => {
+                  this.props.DeleteGhe(ele);
+                  this.props.UnselectecSeat(ele.soGhe);
+                }}
+                className="btn btn-danger"
+              >
+                Hủy
+              </button>
+            </td>
+          </tr>
+        );
+      }
     });
   };
   render() {

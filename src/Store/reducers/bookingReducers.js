@@ -15,17 +15,27 @@ export const bookingReducers = (state = DEFAULT_STATE, { type, payload }) => {
       //   ele.danhSachGhe.map((seat) => {
       //     if (seat.soGhe === state.selectedSeat) {
       //       seat.daDat = true;
+
       //     }
       //   });
       // });
       const hang = state.data.find((ele) => ele.hang === payload.hang);
-
       hang.danhSachGhe = hang.danhSachGhe.map((ghe) => {
         if (ghe.soGhe === payload.soGhe) {
+          if (ghe.daDat) {
+            const dataSeat = [...state.listGhe];
+            const indx = dataSeat.findIndex(
+              (ele) => ele.soGhe === payload.soGhe
+            );
+            // console.log(indx);
+            dataSeat.splice(indx, 1);
+            state.listGhe = dataSeat;
+          }
           return { ...ghe, daDat: !ghe.daDat };
         }
         return ghe;
       });
+      state.data = [...state.data];
       return { ...state };
     }
 
@@ -44,6 +54,7 @@ export const bookingReducers = (state = DEFAULT_STATE, { type, payload }) => {
         ele.danhSachGhe.map((seat) => {
           if (seat.soGhe === state.selectedSeat) {
             seat.daDat = false;
+            state.selectedSeat = "";
           }
         });
       });
