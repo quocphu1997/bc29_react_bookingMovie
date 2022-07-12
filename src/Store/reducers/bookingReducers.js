@@ -1,8 +1,8 @@
-
 import dataBooking from "../../Data/danhSachGhe.json";
 
 const DEFAULT_STATE = {
-  selectedSeat: dataBooking,
+  selectedSeat: "A1",
+  data: dataBooking,
 };
 
 export const bookingReducers = (state = DEFAULT_STATE, { type, payload }) => {
@@ -10,6 +10,13 @@ export const bookingReducers = (state = DEFAULT_STATE, { type, payload }) => {
   switch (type) {
     case "SELECTED_SEAT": {
       state.selectedSeat = payload;
+      state.data.map((ele) => {
+        ele.danhSachGhe.map((seat) => {
+          if (seat.soGhe === state.selectedSeat) {
+            seat.daDat = true;
+          }
+        });
+      });
       return { ...state };
     }
     default:

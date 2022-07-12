@@ -56,8 +56,7 @@ class BodyBooking extends Component {
                 <td key={seat.soGhe}>
                   <button
                     onClick={() => {
-                      this.props.selectecSeat(!seat.daDat);
- 
+                      this.props.selectecSeat(seat.soGhe);
                     }}
                     className={`btn ${seat.daDat && "btn-success"}`}
                     style={{
@@ -69,7 +68,6 @@ class BodyBooking extends Component {
                       marginBottom: "1%",
                       borderRadius: "5px",
                       cursor: "pointer",
-                      // backgroundColor:"green"
                     }}
                     key={seat.soGhe}
                   >
@@ -102,6 +100,11 @@ class BodyBooking extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    ...state.bookingReducers,
+  };
+};
 const mapDispatchToProps = (dispatch) => {
   return {
     selectecSeat: (type) => {
@@ -113,4 +116,4 @@ const mapDispatchToProps = (dispatch) => {
     },
   };
 };
-export default connect(null, mapDispatchToProps)(BodyBooking);
+export default connect(mapStateToProps, mapDispatchToProps)(BodyBooking);
